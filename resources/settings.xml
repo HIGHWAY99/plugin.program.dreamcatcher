@@ -1,0 +1,30 @@
+<settings>
+	<category label="General">
+		<setting visible="true" id="core-player" type="labelenum" label="Player Core" values="AUTO|DVDPLAYER|MPLAYER|PAPLAYER"             default="AUTO"/>
+		<setting visible="true" id="debug-enable" 	type="bool" label="Enable Debugging to File" default="false" />
+		<setting visible="true" id="debug-show" 		type="bool" label="Enable Debugging to Notice(s)" default="false" />
+		<setting visible="false" id="auto-view" type="bool"   label="Enable Automatic View" default="false"/>
+		<setting visible="false" id="default-view"   type="number" label="Default"               default="50"   enable="!eq(-1,false)"/>
+		<setting visible="false" id="movies-view"    type="number" label="Movies"                default="515"  enable="!eq(-2,false)"/>
+		<setting visible="false" id="tvshows-view"   type="number" label="TV Shows"              default="515"  enable="!eq(-3,false)"/>
+		<setting visible="false" id="season-view"    type="number" label="Seasons"               default="50"   enable="!eq(-4,false)"/>
+		<setting visible="false" id="episode-view"   type="number" label="Episodes"              default="515"  enable="!eq(-5,false)"/>
+		<setting visible="false" id="links-view"   	 type="number" label="Links"              	 default="50"   enable="!eq(-6,false)"/>
+		<setting visible="false" id="anime-view"   	 type="number" label="Anime"              	 default="515"  enable="!eq(-7,false)"/>
+	</category>
+	<category label="Downloads">
+		<setting visible="true" id="download_method"    	 		 type="labelenum" label="Number of Pages" values="Progress|ProgressBG|Test|Hidden|jDownloader (StreamURL)|jDownloader (Link)"             default="Hidden"/>
+		<setting visible="true" id="download_folder_default" 			type="folder" label="Download Folder (Video)"      		default="" />
+		<setting visible="true" id="download_folder_audio" 				type="folder" label="Download Folder (Audio)"      		default="" />
+		<setting visible="false" id="download_folder_anime" 			type="folder" label="Download Folder (Animes)"      	default="" />
+		<setting visible="false" id="download_folder_movies" 			type="folder" label="Download Folder (Movies)"      	default="" />
+		<setting visible="false" id="download_folder_tv" 					type="folder" label="Download Folder (TV)    "      	default="" />
+		<setting visible="false" id="download_folder_wallpapers" 	type="folder" label="Download Folder (Wallpapers)  "  default="" />
+	</category>
+	<category label="Naming">
+		<setting visible="true" id="name-tvshowtitle" type="bool" label="Video: TV Show Title" default="true" />
+		<setting visible="true" id="name-studio" type="bool" label="Video: Studio" default="true" />
+		<setting visible="true" id="name-artist" type="bool" label="Music: Studio" default="true" />
+		<setting visible="true" id="name-datestamp" type="bool" label="Datestamp" default="true" />
+	</category>
+</settings>
