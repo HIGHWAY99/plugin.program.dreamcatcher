@@ -138,7 +138,7 @@
 				<texturefocus>OSDNextTrackFO.png</texturefocus>
 				<texturenofocus>OSDNextTrackNF.png</texturenofocus>
 				<onleft>204</onleft>
-				<onright>250</onright>
+				<onright>206</onright>
 				<onup>1000</onup>
 				<ondown>1000</ondown>
 				<onclick>PlayerControl(Next)</onclick>
@@ -148,12 +148,12 @@
 				<posy>0</posy>
 				<width>55</width>
 				<height>55</height>
-				<label>31354</label>
+				<label>Download</label>
 				<font>-</font>
 				<texturefocus>OSDRecordFO.png</texturefocus>
 				<texturenofocus>OSDRecordNF.png</texturenofocus>
-				<onleft>200</onleft>
-				<onright>202</onright>
+				<onleft>205</onleft>
+				<onright>250</onright>
 				<onup>1000</onup>
 				<ondown>1000</ondown>
 				<onclick>XBMC.RunPlugin(plugin://plugin.program.dreamcatcher/?mode=Record)</onclick>

@@ -1,6 +1,6 @@
 ### ############################################################################################################
 ###	#	
-### # Project: 			#		Stream Recorder - by The Highway 2014.
+### # Project: 			#		Dreamcatcher - by The Highway 2014.
 ### # Author: 			#		The Highway
 ### # Version:			#		
 ### # Description: 	#		
@@ -81,7 +81,7 @@ debob(DT);
 
 
 
-def setupName(vName,pType):
+def setupName(vName,pType,vUrl):
 	if pType=='Video':
 		try: pTVShowTitle=xbmc.getInfoLabel('VideoPlayer.TVShowTitle'); 
 		except: pTVShowTitle=''; 
@@ -95,8 +95,11 @@ def setupName(vName,pType):
 		try: pStudio=xbmc.getInfoLabel('VideoPlayer.Studio'); 
 		except: pStudio=''; 
 		pStudio=pStudio.strip(); pTVShowTitle=pTVShowTitle.strip(); pTitle=pTitle.strip(); 
+		vName=vName.strip(); 
 		if    len(pTitle) > 0: vName+=pTitle
+		vName=vName.strip(); 
 		if   (tfalse(addst('name-tvshowtitle','true'))==True) and (len(pTitle) > 0) and (len(pTVShowTitle) > 0): vName=pTVShowTitle+' - '+vName
+		vName=vName.strip(); 
 		if   (tfalse(addst('name-studio','true'))==True) and (len(pTitle) > 0) and (len(pStudio) > 0): vName=pStudio+' - '+vName
 		elif (tfalse(addst('name-studio','true'))==True) and (len(pTitle)==0)  and (len(pStudio) > 0): vName=pStudio+vName
 		
@@ -110,6 +113,7 @@ def setupName(vName,pType):
 		pStudio=pStudio.strip(); pTVShowTitle=pTVShowTitle.strip(); pTitle=pTitle.strip(); 
 		if    len(pTitle) > 0: vName+=pTitle
 		#if   (tfalse(addst('name-tvshowtitle','true'))==True) and (len(pTitle) > 0) and (len(pTVShowTitle) > 0): vName=pTVShowTitle+' - '+vName
+		vName=vName.strip(); 
 		if   (tfalse(addst('name-artist','true'))==True) and (len(pTitle) > 0) and (len(pStudio) > 0): vName=pStudio+' - '+vName
 		elif (tfalse(addst('name-artist','true'))==True) and (len(pTitle)==0)  and (len(pStudio) > 0): vName=pStudio+vName
 		
@@ -122,12 +126,36 @@ def setupName(vName,pType):
 	#if   (tfalse(addst('name-tvshowtitle','true'))==True) and (len(pTitle) > 0) and (len(pTVShowTitle) > 0): vName=pTVShowTitle+' - '+vName
 	#if   (tfalse(addst('name-studio','true'))==True) and (len(pTitle) > 0) and (len(pStudio) > 0): vName=pStudio+' - '+vName
 	#elif (tfalse(addst('name-studio','true'))==True) and (len(pTitle)==0)  and (len(pStudio) > 0): vName=pStudio+vName
-	vName=vName.replace('!','').replace('"','').replace(':','').replace(';','').replace('|','').replace('/','').replace('\\','')
+	vName=vName.replace('!','').replace('"','').replace(':','').replace(';','').replace('|','').replace('/','').replace('\\','').replace('  ',' ')
+	vName=vName.replace('[B]','').replace('[/B]','').replace('[I]','').replace('[/I]','').replace('[CR]','').replace('[/COLOR]','')
+	for C1 in ["aliceblue","antiquewhite","aqua","aquamarine","azure","beige","bisque","black","blanchedalmond","blue","blueviolet","brown","burlywood","cadetblue","chartreuse","chocolate","coral","cornflowerblue","cornsilk","crimson","cyan","darkblue","darkcyan","darkgoldenrod","darkgray","darkgreen","darkkhaki","darkmagenta","darkolivegreen","darkorange","darkorchid","darkred","darksalmon","darkseagreen","darkslateblue","darkslategray","darkturquoise","darkviolet","deeppink","deepskyblue","dimgray","dodgerblue","firebrick","floralwhite","forestgreen","fuchsia","gainsboro","ghostwhite","gold","goldenrod","gray","green","greenyellow","honeydew","hotpink","indianred ","indigo  ","ivory","khaki","lavender","lavenderblush","lawngreen","lemonchiffon","lightblue","lightcoral","lightcyan","lightgoldenrodyellow","lightgrey","lightgreen","lightpink","lightsalmon","lightseagreen","lightskyblue","lightslategray","lightsteelblue","lightyellow","lime","limegreen","linen","magenta","maroon","mediumaquamarine","mediumblue","mediumorchid","mediumpurple","mediumseagreen","mediumslateblue","mediumspringgreen","mediumturquoise","mediumvioletred","midnightblue","mintcream","mistyrose","moccasin","navajowhite","navy","none","oldlace","olive","olivedrab","orange","orangered","orchid","palegoldenrod","palegreen","paleturquoise","palevioletred","papayawhip","peachpuff","peru","pink","plum","powderblue","purple","red","rosybrown","royalblue","saddlebrown","salmon","sandybrown","seagreen","seashell","sienna","silver","skyblue","slateblue","slategray","snow","springgreen","steelblue","tan","teal","thistle","tomato","turquoise","violet","wheat","white","whitesmoke","yellow","yellowgreen"]: vName=vName.replace('[COLOR '+C1+']','')
+	vName=vName.strip(); 
 	if tfalse(addst('name-datestamp','true'))==True: vName+=' - ['+DT['year']+'-'+DT['month']+'-'+DT['day']+']'; 
-	if   pType=='Video': vName+='.flv'; 
-	elif pType=='Audio': vName+='.mp3'; 
-	else: vName+='.FLV'; 
-	
+	vName=vName.strip(); 
+	if   pType=='Video': 
+		if   '.mpg' in vUrl: vName+='.mpg'; 
+		elif '.mpeg' in vUrl: vName+='.mpeg'; 
+		elif '.mp4' in vUrl: vName+='.mp4'; 
+		elif '.avi' in vUrl: vName+='.avi'; 
+		elif '.wmv' in vUrl: vName+='.wmv'; 
+		elif '.flv' in vUrl: vName+='.flv'; 
+		#elif '.' in vUrl: vName+='.'; 
+		else: vName+='.flv'; 
+	elif pType=='Audio': 
+		if   '.mp3' in vUrl: vName+='.mp3'; 
+		elif '.ogg' in vUrl: vName+='.ogg'; 
+		elif '.mid' in vUrl: vName+='.mid'; 
+		elif '.midi' in vUrl: vName+='.midi'; 
+		elif '.wav' in vUrl: vName+='.wav'; 
+		else: vName+='.mp3'; 
+	else: 
+		if   '.bmp' in vUrl: vName+='.bmp'; 
+		elif '.jpg' in vUrl: vName+='.jpg'; 
+		elif '.jpeg' in vUrl: vName+='.jpeg'; 
+		elif '.png' in vUrl: vName+='.png'; 
+		elif '.gif' in vUrl: vName+='.gif'; 
+		elif '.psd' in vUrl: vName+='.psd'; 
+		else: vName+='.FLV'; 
 	vName=vName.strip(); 
 	return vName
 
@@ -146,7 +174,7 @@ def startStreamRecord():
 	if (len(vPath) > 0) and (len(pType) > 0) and (iIS==True):
 		vPath=fixPath(vPath); deb("vPath",vPath); 
 		vUrl=xbmc.Player().getPlayingFile(); deb("vUrl",vUrl); 
-		vName=setupName(vName,pType); 
+		vName=setupName(vName,pType,vUrl); 
 		###
 		eod(); DoA("Back"); 
 		DownloadThis(vUrl,vName,vPath,False); 
