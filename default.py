@@ -47,7 +47,7 @@ def AFColoring(t):
 def About(head=''+cFL(SiteName,'blueviolet')+'',m=''):
 	m=''
 	if len(m)==0:
-		m+='IRC Chat:  '+cFL('#XBMCHUB','blueviolet')+' @ '+cFL('irc.Freenode.net','blueviolet')
+		m+='IRC Chat:  '+cFL('#The_Projects','blueviolet')+' @ '+cFL('irc.snoonet.org:6667','blueviolet')
 		m+=CR+'Site Name:  '+SiteName+CR+'Site Tag:  '+SiteTag+CR+'Site Domain:  '+mainSite+CR+'Site Icon:  '+iconSite+CR+'Site Fanart:  '+fanartSite
 		#m+=CR+'Age:  Please make sure you are of a valid age to watch the material shown.'
 		#m+=CR+CR+'Known Hosts for Videos:  '
@@ -65,8 +65,8 @@ def About(head=''+cFL(SiteName,'blueviolet')+'',m=''):
 		#m+=CR+'* '
 		#m+=CR+'* '
 		m+=CR+''
-		m+=CR+ps('ReferalMsg')
-		m+=CR+''
+		#m+=CR+ps('ReferalMsg')
+		m+=CR+'For more information visit the forum:  '+cFL('http://forums.addons.center/thread/190-dreamcatcher-addon/','blueviolet')
 		m+=CR+''
 		m+=CR+''
 	String2TextBox(message=cFL(m,'cornflowerblue'),HeaderMessage=head)
@@ -195,7 +195,7 @@ def SectionMenu():
 	if (len(vPath) > 0) and (len(pType) > 0) and (iIS==True):
 		vPath=fixPath(vPath); deb("vPath",vPath); 
 		vUrl=xbmc.Player().getPlayingFile(); deb("vUrl",vUrl); 
-		vName=setupName(vName,pType); 
+		vName=setupName(vName,pType,vUrl); 
 		###
 		_addon.add_directory({'mode':'Download','url':vUrl,'destfile':vName,'filetype':pType,'destpath':vPath,'site':site,'section':section},{'title':cFL('Download '+str(pType)+': ','firebrick')+cFL(vName,'mediumpurple')+CR+vUrl},is_folder=True,fanart=fanartSite,img=iconSite)
 	###
@@ -215,9 +215,24 @@ def mode_subcheck(mode='',site='',section='',url=''):
 		#except: pass
 		#debob([url,addpr('destfile',''),addpr('destpath',''),str(tfalse(addpr('useResolver','true')))]); 
 		#DownloadThis(url,addpr('destfile',''),addpr('destpath',''),tfalse(addpr('useResolver','true'))); 
-		debob([url,addpr('destfile',''),addpr('destpath',''),'False']); 
+		destpath=addpr('destpath','')
+		if len(destpath)==0: destpath=addst('download_folder_default','')
+		debob([url,addpr('destfile',''),destpath,'False']); 
 		eod(); DoA("Back"); 
-		DownloadThis(url,addpr('destfile',''),addpr('destpath',''),False); 
+		DownloadThis(url,addpr('destfile',''),destpath,False); 
+		
+	elif (mode=='ResolveAndDownload'):
+		destpath=addpr('destpath','')
+		if len(destpath)==0: destpath=addst('download_folder_default','')
+		debob([url,addpr('destfile',''),destpath,'False']); 
+		eod(); DoA("Back"); 
+		try: import urlresolver
+		except: myNote('Problem','unable to import: urlresolver',15000); debob(['Problem','unable to import: urlresolver']); return
+		try:
+			oUrl=''+url
+			url=urlresolver.HostedMediaFile(url).resolve()
+		except: myNote('Problem','resolving url',15000); debob(['Problem','resolving url',oUrl,url]); return
+		DownloadThis(url,addpr('destfile',''),destpath,False); 
 		
 	elif (mode=='toJDownloader'): 
 		SendTo_JDownloader(url,tfalse(addpr('useResolver','true'))); 

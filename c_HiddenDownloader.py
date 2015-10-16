@@ -7,7 +7,7 @@
 ### ############################################################################################################
 ### Imports ###
 from common import *
-from common import (_addon,_artIcon,_artFanart,_addonPath,_OpenFile)
+#from common import (_addon,_artIcon,_artFanart,_addonPath,_OpenFile)
 def download(url,destfile,destpath,useResolver=True):
 	import urllib
 	#import xbmcgui
@@ -19,19 +19,26 @@ def download(url,destfile,destpath,useResolver=True):
 	#	except: link=url
 	#else: link=url
 	link=url
-	if isPath(destpath)==False: os.mkdir(destPath)
+	if len(destpath)==0:
+		myNote('Please setup folder path in addon settings.',destfile,100)
+		return
+	if isPath(destpath)==False: 
+		try: os.mkdir(destpath)
+		except:
+			myNote('Problem creating folder for destination path.',destfile,100)
+			return
 	myNote('Starting Download',destfile,100)
-	urllib.urlretrieve(link, xbmc.translatePath(os.path.join(destpath,destfile)),lambda nb, bs, fs, url=url: _pbhook(nb,bs,fs,url,dp))
-	#urllib.urlretrieve(link, xbmc.translatePath(os.path.join(destpath,destfile)), lambda nb, bs, fs: DownloadStatus(nb, bs, fs, dp, download_method, start_time, section, url, img, LabelName, ext, LabelFile))
+	urllib.urlretrieve(link,xbmc.translatePath(os.path.join(destpath,destfile)),lambda nb, bs, fs, url=url: _pbhook(nb,bs,fs,url,dp))
+	#urllib.urlretrieve(link,xbmc.translatePath(os.path.join(destpath,destfile)), lambda nb, bs, fs: DownloadStatus(nb, bs, fs, dp, download_method, start_time, section, url, img, LabelName, ext, LabelFile))
 	myNote('Download Complete',destfile,15000)
 	#try: _addon.resolve_url(url)
 	#except: pass
-def _pbhook(numblocks, blocksize, filesize, url, dp):
+def _pbhook(numblocks,blocksize,filesize,url,dp):
 	try:
-		percent = min((numblocks*blocksize*100)/filesize, 100)
+		percent=min((numblocks*blocksize*100)/filesize,100)
 		#dp.update(percent)
 	except:
-		percent = 100
+		percent=100
 		#dp.update(percent)
 	#if dp.iscanceled(): 
 	#	raise Exception("Canceled")

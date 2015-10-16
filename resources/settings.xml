@@ -13,7 +13,7 @@
 		<setting visible="false" id="anime-view"   	 type="number" label="Anime"              	 default="515"  enable="!eq(-7,false)"/>
 	</category>
 	<category label="Downloads">
-		<setting visible="true" id="download_method"    	 		 type="labelenum" label="Number of Pages" values="Progress|ProgressBG|Test|Hidden|jDownloader (StreamURL)|jDownloader (Link)"             default="Hidden"/>
+		<setting visible="true" id="download_method"    	 		 type="labelenum" label="Download Method" values="Progress|ProgressBG|Test|Hidden|jDownloader (StreamURL)|jDownloader (Link)"             default="Hidden"/>
 		<setting visible="true" id="download_folder_default" 			type="folder" label="Download Folder (Video)"      		default="" />
 		<setting visible="true" id="download_folder_audio" 				type="folder" label="Download Folder (Audio)"      		default="" />
 		<setting visible="false" id="download_folder_anime" 			type="folder" label="Download Folder (Animes)"      	default="" />
